@@ -3,26 +3,36 @@ const navEmail = document.querySelector('.navbar-email');
 const menuHamburgerIcon = document.querySelector('.menu')
 const mobileMenu = document.querySelector('.mobile-menu');
 const shoppingCartIcon = document.querySelector('.navbar-shopping-cart');
-const myOrderList = document.querySelector('.product-detail');
+const shoppingCartContainer = document.querySelector('#shoppingCartContainer');
 const cardsContainer = document.querySelector('.cards-container');
+const productDetail = document.querySelector('#productDetail');
+const closeProductDetailIcon = document.querySelector('.product-detail-close');
 
 // Link to display profile options
 navEmail.addEventListener('click', () => {
-    myOrderList.classList.add('inactive');
+    shoppingCartContainer.classList.add('inactive');
     menuDesktop.classList.toggle('inactive');
+    productDetail.classList.add('inactive');
 });
 
 // Hamburger menu icon to display menu options
 menuHamburgerIcon.addEventListener('click', () => {
-    myOrderList.classList.add('inactive');
+    shoppingCartContainer.classList.add('inactive');
     mobileMenu.classList.toggle('inactive');
+    productDetail.classList.add('inactive');
 });
 
 // Cart icon to display order
 shoppingCartIcon.addEventListener('click', () => {
     mobileMenu.classList.add('inactive');
     menuDesktop.classList.add('inactive');
-    myOrderList.classList.toggle('inactive');
+    shoppingCartContainer.classList.toggle('inactive');
+    productDetail.classList.add('inactive');
+});
+
+// Close product detail view
+closeProductDetailIcon.addEventListener('click', () => {
+    productDetail.classList.add('inactive');
 });
 
 // Show product from JS
@@ -69,7 +79,7 @@ productList.push({
     image: 'https://images.pexels.com/photos/2385477/pexels-photo-2385477.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
 })
 
-
+// Show products in HTML
 const renderProducts = arr => {
     for (product of arr) {
         const productCard = document.createElement('div');
@@ -77,6 +87,12 @@ const renderProducts = arr => {
     
         const productImg = document.createElement('img');
         productImg.setAttribute('src', product.image);
+        // Display a product detail view
+        productImg.addEventListener('click', () => {
+            productDetail.classList.remove('inactive');
+            shoppingCartContainer.classList.add('inactive');
+            menuDesktop.classList.add('inactive');
+        });
     
         const productInfo = document.createElement('div');
         productInfo.classList.add('product-info');
@@ -101,3 +117,4 @@ const renderProducts = arr => {
 }
 
 renderProducts(productList);
+
